@@ -3,12 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        #myCanvas {
+            width: 100vw;
+            height: 100vh;
+            border: none;
+        }
+    </style>
 </head>
 <body>
-<canvas id="myCanvas" width="1600" height="1200" style="border:1px solid #d3d3d3;"></canvas>
+<canvas id="myCanvas"></canvas>
 <script>
     const canvas = document.getElementById('myCanvas');
     const ctx = canvas.getContext('2d');
+    
+    // 设置画布宽高为窗口宽高
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    
+    // 处理窗口大小变化
+    window.addEventListener('resize', () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    });
+    
     var x = 75;
     var y = 75;
 
@@ -16,7 +39,7 @@
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         ctx.beginPath();
         ctx.arc(x, y, 75, 0, Math.PI * 2, true);
-        ctx.fillStyle = 'rgba(63,64,61,0.58)';
+        ctx.fillStyle = 'blue';
         ctx.fill();
         ctx.closePath();
     }
