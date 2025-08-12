@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Super Mario Game</title>
+    <!-- 引入Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 引入Font Awesome -->
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- 配置Tailwind自定义颜色和字体 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        marioRed: '#E63946',
+                        marioBlue: '#1D3557',
+                        marioYellow: '#FFD700',
+                        marioGreen: '#4CC9F0',
+                        marioBrown: '#7D4427',
+                    },
+                    fontFamily: {
+                        pixel: ['"Press Start 2P"', 'cursive', 'sans-serif'],
+                        game: ['"Bangers"', 'cursive', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+
+    <!-- 引入Google字体 -->
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Press+Start+2P&display=swap" rel="stylesheet">
+
+    <!-- 自定义工具类 -->
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .text-shadow {
+                text-shadow: 4px 4px 0px rgba(0, 0, 0, 0.8);
+            }
+
+            .text-shadow-sm {
+                text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.8);
+            }
+
+            .pixel-border {
+                box-shadow: 0 -4px 0 4px rgba(0, 0, 0, 0.5),
+                4px 0 0 4px rgba(0, 0, 0, 0.5),
+                0 4px 0 4px rgba(0, 0, 0, 0.5),
+                -4px 0 0 4px rgba(0, 0, 0, 0.5);
+            }
+
+            .hover-scale {
+                transition: transform 0.3s ease;
+            }
+
+            .hover-scale:hover {
+                transform: scale(1.05);
+            }
+
+            .mario-bounce {
+                animation: bounce 2s infinite;
+            }
+
+            @keyframes bounce {
+                0%, 100% {
+                    transform: translateY(0);
+                }
+                50% {
+                    transform: translateY(-10px);
+                }
+            }
+            .map-card {
+                transition: all 0.3s ease;
+            }
+
+            .map-card:hover {
+                transform: translateY(-10px) scale(1.03);
+            }
+        }
+    </style>
+</head>
+<body class="bg-marioBlue min-h-screen overflow-x-hidden">
+<!-- 背景图 -->
+<div class="fixed inset-0 z-0 opacity-30">
+    <img src="https://picsum.photos/id/1015/1920/1080" alt="Super Mario background with clouds and hills" class="w-full h-full object-cover">
+</div>
+
+<!-- 装饰性元素 - 浮动云朵 -->
+<div class="fixed top-10 left-10 w-32 h-16 bg-white rounded-full z-0 animate-pulse"></div>
+<div class="fixed top-20 right-20 w-40 h-20 bg-white rounded-full z-0 animate-pulse" style="animation-delay: 1s;"></div>
+<div class="fixed bottom-40 left-1/4 w-28 h-14 bg-white rounded-full z-0 animate-pulse" style="animation-delay: 0.5s;"></div>
+
+<!-- 主容器 -->
+<div class="relative z-10 container mx-auto px-4 py-8 flex flex-col items-center">
+
+    <!-- 标题区域 -->
+    <header class="w-full text-center my-8 md:my-16">
+        <h1 class="text-[clamp(2.5rem,8vw,5rem)] font-game text-marioRed text-shadow mario-bounce">
+            Super Mario
+        </h1>
+        <p class="text-[clamp(1rem,3vw,1.5rem)] font-pixel text-marioYellow text-shadow-sm mt-4">
+            Choose Your Adventure!
+        </p>
+    </header>
+
+    <!-- 地图选择区域 -->
+    <section class="w-full max-w-6xl my-8 md:my-16">
+        <h2 class="text-[clamp(1.2rem,4vw,2rem)] font-pixel text-white text-shadow-sm text-center mb-8">
+            Select a World
+        </h2>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+            <!-- 地图1 -->
+            <div class="map-card bg-white rounded-lg overflow-hidden shadow-2xl">
+                <div class="h-48 overflow-hidden">
+                    <img src="https://picsum.photos/id/1018/600/400" alt="Grassland world map with green hills and blue sky" class="w-full h-full object-cover">
+                </div>
+                <div class="p-4 bg-marioBrown text-white text-center">
+                    <h3 class="font-pixel text-lg">World 1-1</h3>
+                    <p class="text-sm mt-1">Grassland</p>
+                    <button class="mt-3 bg-marioRed hover:bg-red-700 text-white py-1 px-3 rounded text-xs font-bold transition-colors">
+                        Play
+                    </button>
+                </div>
+            </div>
+
+            <!-- 地图2 -->
+            <div class="map-card bg-white rounded-lg overflow-hidden shadow-2xl">
+                <div class="h-48 overflow-hidden">
+                    <img src="https://picsum.photos/id/1019/600/400" alt="Desert world map with sand dunes and cacti" class="w-full h-full object-cover">
+                </div>
+                <div class="p-4 bg-marioBrown text-white text-center">
+                    <h3 class="font-pixel text-lg">World 2-1</h3>
+                    <p class="text-sm mt-1">Desert</p>
+                    <button class="mt-3 bg-marioRed hover:bg-red-700 text-white py-1 px-3 rounded text-xs font-bold transition-colors">
+                        Play
+                    </button>
+                </div>
+            </div>
+
+            <!-- 地图3 -->
+            <div class="map-card bg-white rounded-lg overflow-hidden shadow-2xl">
+                <div class="h-48 overflow-hidden">
+                    <img src="https://picsum.photos/id/1036/600/400" alt="Underwater world map with blue water and coral reefs" class="w-full h-full object-cover">
+                </div>
+                <div class="p-4 bg-marioBrown text-white text-center">
+                    <h3 class="font-pixel text-lg">World 3-1</h3>
+                    <p class="text-sm mt-1">Underwater</p>
+                    <button class="mt-3 bg-marioRed hover:bg-red-700 text-white py-1 px-3 rounded text-xs font-bold transition-colors">
+                        Play
+                    </button>
+                </div>
+            </div>
+
+            <!-- 地图4 -->
+            <div class="map-card bg-white rounded-lg overflow-hidden shadow-2xl">
+                <div class="h-48 overflow-hidden">
+                    <img src="https://picsum.photos/id/1039/600/400" alt="Castle world map with dark stone walls and lava" class="w-full h-full object-cover">
+                </div>
+                <div class="p-4 bg-marioBrown text-white text-center">
+                    <h3 class="font-pixel text-lg">World 4-1</h3>
+                    <p class="text-sm mt-1">Castle</p>
+                    <button class="mt-3 bg-marioRed hover:bg-red-700 text-white py-1 px-3 rounded text-xs font-bold transition-colors">
+                        Play
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 功能按钮区域 -->
+    <section class="w-full max-w-2xl my-12 flex flex-col sm:flex-row justify-center gap-6">
+        <!-- 设置按钮 -->
+        <button class="flex items-center justify-center gap-3 bg-marioBlue hover:bg-blue-800 text-white font-pixel py-4 px-8 rounded-lg shadow-xl pixel-border hover-scale w-full sm:w-auto">
+            <i class="fa fa-cog fa-2x"></i>
+            <span class="text-lg">Settings</span>
+        </button>
+
+        <!-- 地图编辑器按钮 -->
+        <button class="flex items-center justify-center gap-3 bg-marioGreen hover:bg-green-600 text-white font-pixel py-4 px-8 rounded-lg shadow-xl pixel-border hover-scale w-full sm:w-auto">
+            <i class="fa fa-paint-brush fa-2x"></i>
+            <span class="text-lg">Map Editor</span>
+        </button>
+    </section>
+
+    <!-- 底部装饰元素 -->
+    <div class="mt-auto w-full h-16 bg-marioBrown relative overflow-hidden">
+        <!-- 地面砖块效果 -->
+        <div class="absolute inset-0 flex">
+            <div class="w-16 h-16 bg-marioBrown border-r-2 border-amber-700"></div>
+            <div class="w-16 h-16 bg-amber-700 border-r-2 border-marioBrown"></div>
+            <div class="w-16 h-16 bg-marioBrown border-r-2 border-amber-700"></div>
+            <div class="w-16 h-16 bg-amber-700 border-r-2 border-marioBrown"></div>
+            <div class="w-16 h-16 bg-marioBrown border-r-2 border-amber-700"></div>
+            <div class="w-16 h-16 bg-amber-700 border-r-2 border-marioBrown"></div>
+            <div class="w-16 h-16 bg-marioBrown border-r-2 border-amber-700"></div>
+            <div class="w-16 h-16 bg-amber-700 border-r-2 border-marioBrown"></div>
+            <div class="w-16 h-16 bg-marioBrown border-r-2 border-amber-700"></div>
+            <div class="w-16 h-16 bg-amber-700 border-r-2 border-marioBrown"></div>
+        </div>
+    </div>
+</div>
+
+<!-- 简单的交互脚本 -->
+<script>
+    // 为地图卡片添加点击效果
+    document.querySelectorAll('.map-card').forEach(card => {
+        card.addEventListener('click', function () {
+            // 添加点击动画
+            this.classList.add('scale-95');
+            setTimeout(() => {
+                this.classList.remove('scale-95');
+                // 在实际应用中，这里会跳转到相应的游戏页面
+                const world = this.querySelector('h3').textContent;
+                alert(`Starting ${world}...`);
+            }, 150);
+        });
+    });
+
+    // 为功能按钮添加点击效果
+    document.querySelectorAll('button').forEach(button => {
+        if (button.textContent.includes('Settings')) {
+            button.addEventListener('click', () => {
+                alert('Opening Settings...');
+            });
+        } else if (button.textContent.includes('Map Editor')) {
+            button.addEventListener('click', () => {
+                alert('Opening Map Editor...');
+            });
+        }
+    });
+
+    // 页面加载动画
+    window.addEventListener('load', () => {
+        document.body.classList.add('opacity-100');
+        document.body.classList.remove('opacity-0');
+    });
+</script>
+</body>
+</html>
